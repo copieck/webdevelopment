@@ -5,7 +5,10 @@
     <title>Daniel is a bot</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1 id="h1" onclick="changeHeader()">Hello World</h1>
+
+
+
 <h2>Hello World</h2>
     <h2 style="text-align: center;"</h2>
 <h3>this is and h3</h3>
@@ -20,12 +23,32 @@
 </body>
 
 <style>
- h3{
-
-  color:blue;
- }
-
 
 </style>
+
+<script>
+    console.log('Hello');
+
+
+
+    let x = 5;
+    console.log(x);
+    let y = "6";
+    console.log(x+y, x+y);
+
+    x = x++
+    console.log("x", x);
+
+
+
+function changeHeader() {
+    let element = document.getElementById("h1");
+    console.log(element);
+    element.innerText = "Hi Cole";
+    element.style.color = "red";
+}
+
+</script>
+
 
 </html>

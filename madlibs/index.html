@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MadLibs</title>
+</head>
+<body>
+<h1>Madlibs</h1>
+
+
+<div id="entry">
+    <h2> My test page</h2>
+    <p> adjective: <input type= "text" id="adjective_input"></p>
+    <p> noun: <input type= "text" id="noun_input"></p>
+    <p> color: <input type= "text" id="color_input"></p>
+    <p> clothing item: <input type= "text" id="clothing_input"></p>
+    <p> school supply: <input type= "text" id="school_supply_input"></p>
+    <p> number: <input type= "text" id="number_input"></p>
+    <p> food: <input type= "text" id="food_input"></p>
+    <p> drink: <input type= "text" id="drink_input"></p>
+    <p> animal: <input type= "text" id="animal_input"></p>
+    <p> vehicle: <input type= "text" id="vehicle_input"></p>
+    <p> teacher name: <input type= "text" id="teacher_name_input"></p>
+    <button onclick="madlibs()">Submit</button>
+</div>
+
+<div id="results">
+    <h2>Results</h2>
+    <p>
+        This morning I woke up feeling very <span id="adjective_output">(adjective)</span> and jumped out of my <span id="noun_output">(noun)</span>.
+
+        I quickly put on my <span id="color_output">(color)</span> <span id="clothing_output">(clothing item)</span> and grabbed my <span id="school_supply_output">(school supply)</span>.
+
+        For breakfast, I ate <span id="number_output">(number)</span> <span id="plural_food_output">(plural food)</span> and drank some <span id="drink_output">(drink)</span>.
+
+        On the way to school, I saw a <span id="animal_output">(animal)</span> riding a <span id="vehicle_output">(vehicle)</span>.
+
+        When I got to class, my teacher <span id="teacher_name_output">(teacher name)</span> said, “You're late”.
+    </p>
+
+</div>
+</body>
+
+<style>
+ #results {
+     display: none;
+ }
+</style>
+
+<script>
+function madlibs() {
+
+    let adjective_input = document.getElementById("adjective_input");
+    let noun_input = document.getElementById("noun_input");
+    let color_input = document.getElementById("color_input");
+    let clothing_input = document.getElementById("clothing_input");
+    let school_supply_input = document.getElementById("school_supply_input");
+    let number_input = document.getElementById("number_input");
+    let food_input = document.getElementById("food_input");
+    let drink_input = document.getElementById("drink_input");
+    let animal_input = document.getElementById("animal_input");
+    let vehicle_input = document.getElementById("vehicle_input");
+    let teacher_name_input = document.getElementById("teacher_name_input");
+
+    if(
+        adjective_input.value == "" ||
+        noun_input.value == "" ||
+        color_input.value == "" ||
+        clothing_input.value == "" ||
+        school_supply_input.value == "" ||
+        number_input.value == "" ||
+        food_input.value == "" ||
+        drink_input.value == "" ||
+        animal_input.value == "" ||
+        vehicle_input.value == "" ||
+        teacher_name_input.value == ""
+    ){
+        document.getElementById("entry").style.display = "none";
+        return;
+    }
+
+
+    document.getElementById("adjective_output").innerHTML = adjective_input.value;
+    document.getElementById("noun_output").innerHTML = noun_input.value;
+    document.getElementById("color_output").innerHTML = color_input.value;
+    document.getElementById("clothing_output").innerHTML = clothing_input.value;
+    document.getElementById("school_supply_output").innerHTML = school_supply_input.value;
+    document.getElementById("number_output").innerHTML = number_input.value;
+    document.getElementById("plural_food_output").innerHTML = food_input.value;
+    document.getElementById("drink_output").innerHTML = drink_input.value;
+    document.getElementById("animal_output").innerHTML = animal_input.value;
+    document.getElementById("vehicle_output").innerHTML = vehicle_input.value;
+    document.getElementById("teacher_name_output").innerHTML = teacher_name_input.value;
+
+    document.getElementById("results").style.display = "block";
+    document.getElementById("entry").style.display = "none";
+
+
+}
+
+</script>
+
+</html>
