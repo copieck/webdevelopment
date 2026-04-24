@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown</title>
+</head>
+<body>
+<h1>Piano Lesson Countdown</h1>
+<p id="countdown"></p>
+
+<script>
+    let now = new Date();
+    console.log(now.getTime());
+
+    let then = new Date(1776784728027);
+    console.log("THEN:" + then);
+
+
+    let today = new Date();
+    let dayOfWeek = today.getDay();
+    let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+
+
+    if (daysUntilSaturday === 0) {
+        daysUntilSaturday = 7;
+    }
+
+    let targetDate = new Date();
+    targetDate.setDate(today.getDate() + daysUntilSaturday);
+    targetDate.setHours(10, 0, 0, 0);
+
+    function updateCountdown() {
+        let now = new Date();
+        let diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("countdown").innerHTML = "It's time for your piano lesson!";
+            return;
+        }
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((diff / (1000 * 60)) % 60);
+        let seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("countdown").innerHTML =
+            days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    }
+
+
+    setInterval(updateCountdown, 500);
+
+
+    updateCountdown();
+</script>
+
+</body>
+</html>

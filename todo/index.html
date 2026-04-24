@@ -2,70 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todo List</title>
-
-    <style>
-        label {
-            font-size: 18px;
-        }
-
-        input:checked + label {
-            text-decoration: line-through;
-            color: gray;
-        }
-    </style>
+    <title>To Do</title>
 </head>
 <body>
 
-<input type="text" id="taskInput">
-<button onclick="addTask()">Add</button>
-<br><br>
+<h2>Add a task</h2>
+<label for="task">Task Name: </label><input id="task" type="text" placeholder="task name...">
+<button id="add" onclick="new_task()">Add</button>
 
-<div id="list">
-    <input type="checkbox" id="task1">
-    <label for="task1"> DAAAAAA YANKEES LOSE</label><br>
+<label for="date">Due Date: </label>
+<input type="date" id="date">
 
-    <input type="checkbox" id="task2">
-    <label for="task2"> DAAAAAA YANKEES LOSE</label><br>
-
-    <input type="checkbox" id="task3">
-    <label for="task3"> DAAAAAA YANKEES LOSE</label><br>
+<h2>Tasks</h2>
+<div id="task_list">
+    <!--    </span><div class="task"><input type="checkbox"><span class="task_name">Task 1</span></div>-->
+    <!--    </span><div class="task"><input type="checkbox"><span class="task_name">Task 2</span></div>-->
+    <!--    </span><div class="task"><input type="checkbox"><span class="task_name">Task 3</span></div>-->
 </div>
+</body>
 
-<script>
-    let count = 4;
-
-    function addTask() {
-        let input = document.getElementById("taskInput");
-        let text = input.value.trim();
-
-        if (text === "") return; // prevent empty tasks
-
-        let list = document.getElementById("list");
-
-
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = "task" + count;
-
-        let label = document.createElement("label");
-        label.setAttribute("for", "task" + count);
-        label.textContent = " " + text;
-
-        list.appendChild(checkbox);
-        list.appendChild(label);
-        list.appendChild(document.createElement("br"));
-
-        let current_cookie = getCookie("task");
-        setCookie("task",current_cookie + "|" + text,15);
-
-
-
-        count++;
-        input.value = "";
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #6a915d;
+        margin: 25px;
     }
 
+    div.task > input {
+        margin-right: 15px;
+    }
 
+    #task_list {
+        margin-left: 25px;
+    }
+
+    div.task {
+        background-color: white;
+        width: 80%;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    input[type='checkbox']:checked + span {
+        color: #700000;
+        text-decoration: line-through;
+    }
+
+    div.task:has(input[type='checkbox']:checked) {
+        background-color: #4f7144;
+    }
+
+    div.task:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+<script>
     function setCookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -88,20 +81,86 @@
         }
         return "";
     }
-let current_cookie =getCookie("task");
-   // current_cookie = current_cookie.split("|")
-    //console.log(current_cookie);
-    //console.log(current_cookie.length);
-   // console.log(current_cookie[1]);
-   // console.log(current_cookie[2]);
-    //console.log(current_cookie[3]);
-    //current_cookie[1] = current_cookie[1].toUpperCase();
 
-    for (let i = 0; i < 100; i++) {
+
+
+    function new_task() {
+        let task_input = document.getElementById('task');
+        let date_input = document.getElementById('date');
+        let task_name = task_input.value;
+        let task_date = date_input.value;
+
+        if (task_name == "") {
+            return false;
+        }
+        console.log(task_name);
+        setCookie("task", getCookie("task") + "|" + task_name, 15);
+        add_task(task_name,task_date);
+
+        task_input.value = "";
+        date_input.value = "";
+        task_input.focus();
+    }
+
+    function add_task(task_name,task_date) {
+        let new_div = document.createElement("div");
+        new_div.className = "task";
+        document.getElementById("task_list").appendChild(new_div);
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        new_div.appendChild(checkbox);
+
+        let new_span = document.createElement("span");
+        new_span.setAttribute("class", "task_name");
+
+        new_span.innerText = task_name;
+        new_div.appendChild(new_span);
+
+        let date_span = document.createElement("span");
+        date_span.setAttribute("class", "task_date");
+        date_span.innerText = task_date;
+        new_div.appendChild(date_span);
+
+
+
+        let trash = document.createElement("span");
+        trash.className = "trash";
+        trash.innerText = "🗑️";
+        trash.style.float = "right";
+        trash.addEventListener("click", delete_task)
+        new_div.appendChild(trash);
+
+    }
+
+    function delete_task(e){
+        e.target.parentElement.remove()
+    }
+
+
+    let current_cookie = getCookie("task");
+    console.log(current_cookie);
+    current_cookie = current_cookie.split("|")
+    console.log(current_cookie);
+    // console.log(current_cookie.length);
+    // console.log(current_cookie[1]);
+    // current_cookie[1] = current_cookie[1].toUpperCase();
+    // console.log(current_cookie[1]);
+    // console.log(current_cookie);
+
+    // console.log(current_cookie[0]);
+    // console.log(current_cookie[1]);
+    // console.log(current_cookie[2]);
+    // console.log(current_cookie[3]);
+    // console.log(current_cookie[4]);
+    // console.log(current_cookie[5]);
+
+    for(let i = 0; i < current_cookie.length; i = i + 1){
         console.log(current_cookie[i]);
+        if(current_cookie[0] == '') continue;
+        add_task(current_cookie[i], "");
     }
 
 
 </script>
-</body>
 </html>

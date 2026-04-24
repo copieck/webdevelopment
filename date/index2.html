@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown</title>
+</head>
+<body>
+
+<h1>Countdown</h1>
+
+<label>Select your date and time:</label>
+<input type="datetime-local" id="userDate">
+
+<button onclick="setTargetDate()">Start Countdown</button>
+
+<p id="countdown"></p>
+
+<script>
+    let targetDate = null;
+    let interval = null;
+
+    function setTargetDate() {
+        let input = document.getElementById("userDate").value;
+
+        if (!input) {
+            alert("Please select a date and time.");
+            return;
+        }
+
+        targetDate = new Date(input);
+
+        // Clear old interval if user resets
+        if (interval) {
+            clearInterval(interval);
+        }
+
+        interval = setInterval(updateCountdown, 500);
+        updateCountdown();
+    }
+
+    function updateCountdown() {
+        if (!targetDate) return;
+
+        let now = new Date();
+        let diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("countdown").innerHTML =
+                "It's time!";
+            clearInterval(interval);
+            return;
+        }
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((diff / (1000 * 60)) % 60);
+        let seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("countdown").innerHTML =
+            days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+</script>
+
+</body>
+</html>
