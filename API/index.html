@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NASA APOD</title>
+</head>
+<body>
+
+
+<h1>NASA Astronomy Picture of the Day</h1>
+
+
+<input type="date" id="date">
+<button onclick="getAPOD()">Load Image</button>
+
+
+<br><br>
+
+
+<img src="" id="APOD" width="500">
+
+
+<script>
+
+
+    function getAPOD() {
+
+
+
+
+        let day = document.getElementById('date').value;
+
+
+
+
+        let url = `https://api.nasa.gov/planetary/apod?api_key=poD87k5C3dd02tr1Ej54extrGvyVFcPFaYqb8pa0&date=${day}`;
+
+
+        fetch(url)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data);
+
+
+
+
+                document.getElementById("APOD").src = data.hdurl;
+            })
+            .catch(function(error) {
+                console.error('Fetch error:', error);
+            });
+    }
+
+
+</script>

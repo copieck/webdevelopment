@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar Cipher</title>
+</head>
+<body>
+<h1>Caesar Cipher</h1>
+<p><label for="key">Enter a key: </label><input type="number" id="key" value="3"></p>
+<p><label for="plaintext">Enter your message: </label><input type="text" id="plaintext" value="hello"></p>
+<p><button id="encode" onclick="encode()">Encode</button></p>
+<p id="ciphertext"></p>
+</body>
+
+<script>
+    function encode() {
+
+        let weirdletters = {
+            'a': 'å',
+            'b': '∫',
+            'c': 'ç',
+            'd': '∂',
+            'e': 'é',
+            'f': 'ƒ',
+            'g': '©',
+            'h': '˙',
+            'i': 'î',
+            'j': '∆',
+            'k': '˚',
+            'l': '¬',
+            'm': 'µ',
+            'n': 'ñ',
+            'o': 'ø',
+            'p': 'π',
+            'q': 'œ',
+            'r': '®',
+            's': 'ß',
+            't': '†',
+            'u': '¨',
+            'v': '√',
+            'w': '∑',
+            'x': '≈',
+            'y': '¥',
+            'z': 'Ω',
+        };
+        let key = parseInt(document.getElementById("key").value); // still unused
+
+        let plaintext = document.getElementById("plaintext").value.toLowerCase();
+        let ciphertext = "";
+
+        for (let i = 0; i < plaintext.length; i++) {
+            let char = plaintext[i];
+
+            if (weirdletters[char]) {
+                ciphertext += weirdletters[char];
+            } else {
+                ciphertext += char;
+            }
+        }
+2
+        document.getElementById("ciphertext").innerText = ciphertext;
+    }
+</script>
+
+
+
+</html>
+
