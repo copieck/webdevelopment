@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1 vs 1 Wordle</title>
+    <script src="words.js"></script>
+
+    <style>
+        body {
+            background-color: green;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 8px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .tile {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border: 2px solid black;
+            box-sizing: border-box;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+
+
+</head>
+<body>
+<h1>1 vs 1 Wordle</h1>
+
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+<div class="grid">
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+    <div class="tile"></div>
+</div>
+</body>
+
+<script>
+    let answer= validWords[Math.floor(Math.random() * validWords.length)];
+    let current_word=0;
+
+    document.addEventListener("keydown", function(event) {
+        let grids = document.getElementsByClassName("grid");
+        let titles = grids[current_word].children
+        if (/^[a-z]$/.test(event.key)) {
+
+            //console.log(grids);
+            // grids[0].children[0].innerText = event.key;
+            for(let i = 0; i < titles.length; i++) {
+                if (titles[i].innerText == "") {
+                    titles[i].innerText = event.key;
+                    break;
+                }
+            }
+        }
+
+        if (event.key === "Backspace") {
+            for (let i = titles.length - 1; i >= 0; i--) {
+                if (titles[i].innerText != "") {
+                    titles[i].innerText = "";
+                    break;
+                }
+            }
+        }
+
+        if (event.key === "Enter") {
+            let enteredWord = ""
+            for(let i = 0; i < titles.length; i++) {
+                if(titles[i].innerText == "") {
+                    return false
+                } else {
+                    enteredWord += titles[i].innerText
+                }
+            }
+            if (!validWords.includes(enteredWord)) {
+                alert("Not a valid word!");
+                return;
+            }
+
+
+            if (enteredWord === answer){
+                alert("You Won!");
+            }
+
+            console.log(enteredWord);
+            for (let i = 0; i < titles.length; i++) {
+
+
+                if (enteredWord[i] === answer[i]) {
+                    titles[i].style.backgroundColor = "green";
+                    titles[i].style.color = "white";
+                }
+
+
+                else if (answer.includes(enteredWord[i])) {
+                    titles[i].style.backgroundColor = "gold";
+                    titles[i].style.color = "white";
+                }
+
+
+                else {
+                    titles[i].style.backgroundColor = "gray";
+                    titles[i].style.color = "white";
+                }
+            }
+
+            current_word++;
+        }
+
+    })
+</script>
+</html>
